@@ -6,7 +6,7 @@ from utils.moderation import warn_user, mute_user, ban_user, kick_user, is_admin
 
 load_dotenv()
 
-BOT_TOKEN = os.getenv("7760135917:AAFBV1o8stZ_EpAL3T1tXUzMsQNQ0t2c0-s")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 WELCOME_MESSAGE = "Welcome, {name}! Please follow the group rules."
 
 # Welcome new users
@@ -32,6 +32,7 @@ async def delete_links(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Main app
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
+
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("warn", warn_user))
@@ -46,4 +47,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-                
