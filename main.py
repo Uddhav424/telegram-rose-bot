@@ -1,48 +1,30 @@
 import os
-from telegram import Update, ChatPermissions
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 from dotenv import load_dotenv
-from utils.moderation import warn_user, mute_user, ban_user, kick_user, is_admin
+from telegram import Update
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    ContextTypes,
+)
 
 load_dotenv()
-
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-WELCOME_MESSAGE = "Welcome, {name}! Please follow the group rules."
 
-# Welcome new users
-async def welcome(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    for member in update.message.new_chat_members:
-        await update.message.reply_text(WELCOME_MESSAGE.format(name=member.full_name))
-
-# Start command
+# /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("I'm alive! Use /help for commands.")
+    await update.message.reply_text("✅ Hello! I'm alive and working on PTB v20+.")
 
-# Help command
-async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "/warn @user reason\n/mute @user mins\n/ban @user\n/kick @user"
-    )
+# /help command
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🤖 Available commands:\n/start - Check bot status\n/help - List commands")
 
-# Anti-link handler
-async def delete_links(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if "http" in update.message.text.lower():
-        await update.message.delete()
-
-# Main app
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_cmd))
-    app.add_handler(CommandHandler("warn", warn_user))
-    app.add_handler(CommandHandler("mute", mute_user))
-    app.add_handler(CommandHandler("ban", ban_user))
-    app.add_handler(CommandHandler("kick", kick_user))
-    app.add_handler(MessageHandler(filters.StatusUpdate.NEW_CHAT_MEMBERS, welcome))
-    app.add_handler(MessageHandler(filters.TEXT & filters.Regex("http"), delete_links))
+    app.add_handler(CommandHandler("help", help_command))
 
-    print("Bot running...")
+    print("🤖 Bot is starting...")
     app.run_polling()
 
 if __name__ == "__main__":
