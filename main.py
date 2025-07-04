@@ -18,8 +18,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🤖 Available commands:\n/start - Check bot status\n/help - List commands")
 
-def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+from telegram.ext import ApplicationBuilder
+
+app = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
+app.run_polling()
+
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
