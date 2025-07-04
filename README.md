@@ -1,2 +1,0 @@
-# telegram-rose-bot
-Optional
