@@ -1,5 +1,4 @@
 
-
 import os
 from dotenv import load_dotenv
 from telegram import Update
@@ -9,19 +8,19 @@ from telegram.ext import (
     ContextTypes,
 )
 
-# Load BOT_TOKEN from environment
+# Load token from .env file
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# /start command
+# /start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✅ Hello! I'm alive and working fine.")
+    await update.message.reply_text("✅ Hello! I'm alive and working.")
 
-# /help command
+# /help command handler
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🆘 Use /start to check the bot status.")
+    await update.message.reply_text("🆘 Use /start to check bot status.")
 
-# Main function
+# main function to run bot
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
