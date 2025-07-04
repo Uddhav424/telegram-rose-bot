@@ -12,17 +12,14 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✅ Hello! I'm alive and working on PTB v20+.")
+    await update.message.reply_text("✅ Hello! I'm alive and working on Render!")
 
 # /help command
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🤖 Available commands:\n/start - Check bot status\n/help - List commands")
+    await update.message.reply_text("📖 Available commands:\n/start - Check status\n/help - Show help")
 
-from telegram.ext import ApplicationBuilder
-
-app = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
-app.run_polling()
-
+def main():
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
