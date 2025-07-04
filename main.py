@@ -31,8 +31,7 @@ async def delete_links(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main app
 def main():
-    app = ApplicationBuilder().token(7760135917:AAFBV1o8stZ_EpAL3T1tXUzMsQNQ0t2c0-s).build()
-
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("warn", warn_user))
